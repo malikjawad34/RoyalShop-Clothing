@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
@@ -8,43 +7,44 @@ import { auth } from '../../firebase/firebase.utils';
 import CartIcon from '../cart-icon/cart-icon.componets';
 import CartDropdown from '../cart-dropdown/cart-dropdown.componets';
 import { selectCartHidden } from '../../redux/cart/cart.selector';
+import toggleCarthidden  from '../../redux/cart/cart.actions';
 import { selectCurrentUser } from '../../redux/user/user.selector';
- 
-import './header.styles.scss';
 
-const Header = ({ currentUser, hidden }) => (
-    <div className='header'>
-        <Link className='logo-container'>
-            <Logo className='logo' />
-        </Link>
-        <div className='options'>           
-            <Link className='option' to='/'>
+import { OptionsContainer, HeaderContainer, LinkContainer, OptionLink} from './header.styles';
+
+const Header = ({ currentUser, hidden, dispatch }) => (
+    <HeaderContainer>
+        <LinkContainer onClick={() => {dispatch(toggleCarthidden(true))}} to='/'>
+            <Logo className='logo'  />
+        </LinkContainer>
+        <OptionsContainer>          
+            <OptionLink onClick={() => {dispatch(toggleCarthidden(true))}} to='/'>
                 HOME
-            </Link>
-            <Link className='option' to='/shop'>
+            </OptionLink>
+            <OptionLink  onClick={() => {dispatch(toggleCarthidden(true))}} to='/shop'>
                 SHOP
-            </Link>
-            <Link className='option' to='/contact'>
+            </OptionLink>
+            <OptionLink onClick={() => {dispatch(toggleCarthidden(true))}} to='/contact'>
                 CONTACT
-            </Link>
+            </OptionLink>
             {
                 currentUser ?
-                (<div className='option' onClick={() => auth.signOut()}>
-                     SIGN OUT</div>)
+                (<OptionLink as='div' onClick={() => auth.signOut()}>
+                     SIGN OUT</OptionLink>)
                 :
-                (<Link className='option' to='/sign-in'>
+                (<OptionLink onClick={() => {dispatch(toggleCarthidden(true))}} to='/sign-in'>
                  SIGN IN
-                 </Link>)
+                 </OptionLink>)
             }
             <CartIcon />          
-        </div>
+        </OptionsContainer> 
         {
             hidden ?
             null  
              : <CartDropdown />
           
         }
-    </div>
+    </HeaderContainer>
 );
 const mapStateToProps = createStructuredSelector({
     currentUser: selectCurrentUser,

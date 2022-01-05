@@ -11,7 +11,7 @@ const cartReducer = ( state = INTIAL_STATE, action) => {
         case hiddenActionType.SetHidden:
             return {
                 ...state,
-                hidden: !state.hidden
+                hidden: action.payload
             }
         case hiddenActionType.addItem:
             return {

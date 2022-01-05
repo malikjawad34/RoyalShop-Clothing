@@ -1,7 +1,8 @@
 import hiddenActionType from './cart.types';
 
-const toggleCarthidden = () => ({
-    type: hiddenActionType.SetHidden
+const toggleCarthidden = hiddden => ({
+    type: hiddenActionType.SetHidden,
+    payload: hiddden
 });
 
  export const AddItem = item => ({

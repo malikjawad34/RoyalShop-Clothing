@@ -1,13 +1,13 @@
 import React from 'react'
 
-import './homepage.styles.scss'
+import { HomepageContainer } from './homepage.styles'
 
 import Directory from '../../components/directory/directory.componenets'
 
 const HomePage = () =>(
-    <div className='homepage'>
+    <HomepageContainer>
         <Directory />
-    </div>
+    </HomepageContainer>
 )
 
 export default HomePage;

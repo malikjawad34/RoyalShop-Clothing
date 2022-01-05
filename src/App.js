@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Switch, Route, Redirect } from 'react-router-dom';
+import { createStructuredSelector } from 'reselect';
 
 import { auth } from './firebase/firebase.utils';
 import { createUserProfileDocument } from './firebase/firebase.utils';
@@ -9,12 +10,15 @@ import './App.css';
 
 import Header from './components/header/header.components';
 import {setCurrentUser} from './redux/user/user.actions';
+import { selectCurrentUser } from './redux/user/user.selector';
+
 
 import HomePage from './pages/homepage/homepage.component';
 import ShopPage from './pages/shop/shop.components';
 import CheakOutPage from './pages/cheakout/cheakout.components';
 import SignInAndUpPage from './pages/sign-in-up/sign-in-up.component';
-import Kill from './pages/kill/kill';
+import Jawad from './pages/jawad/jawad.components';
+
 
 
 class App extends React.Component {
@@ -32,9 +36,10 @@ class App extends React.Component {
         })
       }
       else{
-        setCurrentUser(userAuth)
+        setCurrentUser(userAuth);
       }
     });
+
   }
   componentWillUnmonut() {
     this.unsubsribeFromAuth();
@@ -46,7 +51,7 @@ class App extends React.Component {
         <Switch>
           <Route exact path='/' component={HomePage} />          
           <Route exact path='/cheakout' component={CheakOutPage} />
-          <Route exact path='/jawad' component={Kill} />
+          <Route exact path='/jawad' component={Jawad} />
           <Route exact path='/sign-in' 
              render={
                () => this.props.currentUser ?
@@ -61,8 +66,8 @@ class App extends React.Component {
     );
   }
 }
-const mapStateToProps = ({ user }) => ({
-  currentUser: user.currentUser
+const mapStateToProps = createStructuredSelector ({
+  currentUser: selectCurrentUser,
 })
 const mapDispatchToProps = dispatch => ({
   setCurrentUser: user => dispatch(setCurrentUser(user))

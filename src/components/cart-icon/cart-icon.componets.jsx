@@ -20,7 +20,7 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = dispatch => ({
-    toggleCarthidden: () => dispatch(toggleCarthidden())
+    toggleCarthidden: () => dispatch(toggleCarthidden(false))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CartIcon);
